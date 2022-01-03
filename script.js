@@ -1,5 +1,5 @@
 
-
+const key='todolist'
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var i;
@@ -38,6 +38,9 @@ function newElement() {
   if (inputValue === '') {
     alert("You must write something!");
   } else {
+    list=getObj();
+    list.push(inputValue)
+    setObj(list);
     document.getElementById("myUL").appendChild(li);
   }
   document.getElementById("myInput").value = "";
@@ -56,3 +59,39 @@ function newElement() {
   }
 }
 
+function load() {
+	var list=[]
+	
+	 if (!localStorage[key]) {
+  
+    setObj(['Hit the gym11']);
+    
+  }
+  list= getObj();
+ 
+  
+	drawli(list);
+}
+
+ function setObj ( obj) {
+  return localStorage.setItem(key, JSON.stringify(obj))
+}
+  function getObj() {
+  return JSON.parse(localStorage.getItem(key))
+}
+
+function drawli(list) {
+
+	list.forEach((x)=>{
+		 var li = document.createElement("li");
+		  var t = document.createTextNode(x);
+			li.appendChild(t);
+			 document.getElementById("myUL").appendChild(li);
+	});
+  
+  
+	
+}
+
+
+load();
